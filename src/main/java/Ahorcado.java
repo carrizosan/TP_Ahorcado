@@ -4,7 +4,6 @@ import models.Abcedario;
 import models.Jugador;
 import models.Palabra;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,25 +29,18 @@ public class Ahorcado {
         // Lista de jugadores: Recomendados 2 o 3
         List<Jugador> jugadores = Arrays.asList(new Jugador("SANTIAGO", abc, p),
                                                 new Jugador("BERNARDO", abc, p),
-                                                new Jugador("MORENITA", abc, p),
-                                                new Jugador("FERNANDO", abc, p));
+                                                new Jugador("MORENITA", abc, p));
 
-        /* Se crea un array de threads para poder guardar las instancias de los mismos
-        independientemente de la cantidad de jugadores, y poder hacer Thread.join luego
-        de que todos los threads hayan iniciado */
-        Thread[] threads = new Thread[jugadores.size()];
-
-        for(int i = 0; i < jugadores.size(); i++) {
-            threads[i] = new Thread(jugadores.get(i));
-            threads[i].start();
+        for(Jugador j: jugadores) {
+            j.start();
         }
-
-        for(Thread t: threads) {
+        for(Jugador j: jugadores) {
             try {
-                t.join();       // El join permite que el main espere a que los hilos terminen para continuar.
+                j.join();
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         }
 
         // Imprimo resultados del juego

@@ -50,7 +50,7 @@ public class Jugador extends Thread {
         Character letra = ' ';
         /* Puede darse que un hilo ingrese aqui luego del notify() y antes del retorno
            por lo que se vuelve a verificar que la variable enJuego sea true.
-           Se verifica quee el abecedario todavia tenga letras, sino termina el juego. */
+           Se verifica que el abecedario todavia tenga letras, sino termina el juego. */
         if (!abc.getAbc().isEmpty() && enJuego) {
             System.out.println("| TURNO DE " + nombre);
             letra = abc.getLetra();         // Extrae letra del abecedario
@@ -68,7 +68,7 @@ public class Jugador extends Thread {
             System.out.println("| PALABRA FORMADA: " + this.palabra.getPalabraEnJuego());
             System.out.println("| PUNTOS: " + this.puntos);
             System.out.println("| VIDAS: " + this.vidas);
-            System.out.println("-----------------------------\n");
+            System.out.println("-----------------------------\n|");
             // El juego termina si uno de los jugadores queda sin vidas
             if(this.vidas == 0) {
                 enJuego = false;
