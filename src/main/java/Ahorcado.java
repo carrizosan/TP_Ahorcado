@@ -4,6 +4,7 @@ import models.Abcedario;
 import models.Jugador;
 import models.Palabra;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,18 +22,22 @@ public class Ahorcado {
             palabra = db.getPalabra();      // Obtiene una palabra aleatoria
         }catch (SQLException e) {
             System.out.println("Error al conectarse a la base de datos");
+        }finally {
+            db.closeConnection();       // Siempre cierra la conexion
         }
         Palabra p = new Palabra(palabra);
 
         // Lista de jugadores: Recomendados 2 o 3
         List<Jugador> jugadores = Arrays.asList(new Jugador("SANTIAGO", abc, p),
                                                 new Jugador("BERNARDO", abc, p),
-                                                new Jugador("MORENITA", abc, p));
+                                                new Jugador("MORENITA", abc, p),
+                                                new Jugador("FERNANDO", abc, p));
 
         /* Se crea un array de threads para poder guardar las instancias de los mismos
         independientemente de la cantidad de jugadores, y poder hacer Thread.join luego
         de que todos los threads hayan iniciado */
         Thread[] threads = new Thread[jugadores.size()];
+
         for(int i = 0; i < jugadores.size(); i++) {
             threads[i] = new Thread(jugadores.get(i));
             threads[i].start();
@@ -59,6 +64,7 @@ public class Ahorcado {
         // Muestro y guardo en base de datos el ganador/es
         // En caso de empate guardo todos los que empataron
         try {
+            db.startConnection();
             if (jugadores.size() == 1) {
                 System.out.println("\n[ EL GANADOR DEL AHORCADO ES " + jugadores.get(0).getNombre() + "!! PUNTOS: " +
                         jugadores.get(0).getPuntos() + ", VIDAS: " + jugadores.get(0).getVidas() + " ]");
@@ -72,6 +78,8 @@ public class Ahorcado {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            db.closeConnection();
         }
     }
 

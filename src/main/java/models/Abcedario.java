@@ -19,7 +19,11 @@ public class Abcedario {
 
     }
 
-    // Devuelve el abecedario. Se sincroniza para que solo acceda un hilo a la vez
+    /* Devuelve el abecedario. Se sincroniza para que solo acceda un hilo a la vez.
+    No cambia la variable ocupado: Si entra en el wait, es porque hay otro hilo
+    modificando la lista en otro metodo, y debe esperar a que este termine de
+    modificar la lista y lo notifique
+     */
     public synchronized List<Character> getAbc() {
         while(ocupado) {
             try {
@@ -48,7 +52,7 @@ public class Abcedario {
         l = abc.get(rand.nextInt(size));
         abc.remove(l);
         ocupado = false;
-        notify();
+        notifyAll();
         return l;
     }
 }

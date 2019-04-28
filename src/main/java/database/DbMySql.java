@@ -45,7 +45,13 @@ public class DbMySql {
         return palabra;
     }
 
-
+    public void closeConnection() {
+        try {
+            this.cn.close();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
