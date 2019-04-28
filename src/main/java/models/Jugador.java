@@ -30,6 +30,7 @@ public class Jugador extends Thread {
            } catch (InterruptedException e) {
                e.printStackTrace();
            }
+
        }
 
     }
