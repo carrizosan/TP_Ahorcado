@@ -47,10 +47,11 @@ public class Abcedario {
         // Zona critica
         ocupado = true;
         Character l = ' ';
-        int size = abc.size();
-        Random rand = new Random();
-        l = abc.get(rand.nextInt(size));
-        abc.remove(l);
+        if(!abc.isEmpty()) {
+            Random rand = new Random();
+            l = abc.get(rand.nextInt(abc.size()));  // Obtengo un indice entero random entre 0 y el tamaño del array
+            abc.remove(l);
+        }
         ocupado = false;
         notifyAll();
         return l;

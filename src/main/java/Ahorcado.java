@@ -31,12 +31,14 @@ public class Ahorcado {
                                                 new Jugador("BERNARDO", abc, p),
                                                 new Jugador("MORENITA", abc, p));
 
+        // Comienza la ejecucion de los hilos
         for(Jugador j: jugadores) {
             j.start();
         }
+        // El hilo Main sigue ejecutando, pero con join le digo que espere a esos hilos
         for(Jugador j: jugadores) {
             try {
-                j.join();
+                j.join();       // Unifica cada hilo con el main cuando terminan
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
