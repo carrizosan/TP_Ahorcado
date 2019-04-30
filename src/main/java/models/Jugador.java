@@ -19,11 +19,9 @@ public class Jugador extends Thread {
        boolean sigasiga = true;
        // Ejecuta siempre que el juego no haya terminado
        while(sigasiga) {
-           //synchronized (abc) {
                sigasiga = abc.jugar(this);
-          // }
            try {
-               Thread.currentThread().sleep(2000);      // Sleep solo estetico para el output
+               Thread.currentThread().sleep(1000);      // Sleep solo estetico para el output
            } catch (InterruptedException e) {
                e.printStackTrace();
            }
