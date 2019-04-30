@@ -27,7 +27,7 @@ public class DbMySql {
     }
 
     // Query con parametros y sin retorno
-    public void guardarGanador(Jugador ganador) throws SQLException {
+    public void guardarGanador(Jugador ganador, String palabra) throws SQLException {
         Statement st = this.cn.createStatement();
         Date date = new Date(Calendar.getInstance().getTimeInMillis());
         PreparedStatement ps = cn.prepareStatement("INSERT INTO ganadores (nombre, puntaje, vidas, fecha, palabra) " +
@@ -36,7 +36,7 @@ public class DbMySql {
         ps.setInt(2, ganador.getPuntos());
         ps.setInt(3, ganador.getVidas());
         ps.setDate(4, date);
-        ps.setString(5, ganador.getPalabraCompleta());
+        ps.setString(5, palabra);
         ps.execute();
     }
 

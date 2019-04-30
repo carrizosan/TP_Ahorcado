@@ -18,6 +18,7 @@ public class Palabra {
         for(int i=0; i < this.palabra.length(); i++) {
             this.palabraEnJuego = palabraEnJuego.append("-");
         }
+
     }
 
     public String getPalabra() {

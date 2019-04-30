@@ -13,7 +13,6 @@ public class Ahorcado {
     public static void main(String[] args) {
 
         DbMySql db = new DbMySql();
-        Abcedario abc = new Abcedario();
         String palabra = "";
 
         try {
@@ -25,11 +24,11 @@ public class Ahorcado {
             db.closeConnection();       // Siempre cierra la conexion
         }
         Palabra p = new Palabra(palabra);
-
+        Abcedario abc = new Abcedario(p);
         // Lista de jugadores: Recomendados 2 o 3
-        List<Jugador> jugadores = Arrays.asList(new Jugador("SANTIAGO", abc, p),
-                                                new Jugador("BERNARDO", abc, p),
-                                                new Jugador("MORENITA", abc, p));
+        List<Jugador> jugadores = Arrays.asList(new Jugador("SANTIAGO", abc),
+                                                new Jugador("BERNARDO", abc),
+                                                new Jugador("MORENITA", abc));
 
         // Comienza la ejecucion de los hilos
         for(Jugador j: jugadores) {
@@ -62,12 +61,12 @@ public class Ahorcado {
             if (jugadores.size() == 1) {
                 System.out.println("\n[ EL GANADOR DEL AHORCADO ES " + jugadores.get(0).getNombre() + "!! PUNTOS: " +
                         jugadores.get(0).getPuntos() + ", VIDAS: " + jugadores.get(0).getVidas() + " ]");
-                db.guardarGanador(jugadores.get(0));
+                db.guardarGanador(jugadores.get(0), abc.getPalabraCompleta());
             } else {
                 System.out.println("\n[ EMPATE! LOS GANADORES SON: ");
                 for (Jugador j : jugadores) {
                     System.out.println(j.getNombre() + ", PUNTOS: " + j.getPuntos() + ", VIDAS: " + j.getVidas() + " ]");
-                    db.guardarGanador(j);
+                    db.guardarGanador(j, abc.getPalabraCompleta());
                 }
             }
         } catch (SQLException e) {
